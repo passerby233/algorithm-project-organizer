@@ -1,0 +1,9 @@
+# path 相对算法项目仓库根目录；本机文件只覆盖 path，使用绝对路径。
+schema_version: 1
+mode: in_repo # in_repo / external
+path: code/src
+repo_asset_id: null # 外部代码填写 assets.yaml.repos 中的 ID
+entrypoints: # 路径相对上面的代码根目录；未提供入口时保持 null
+  train: null
+  infer: null
+  eval: null

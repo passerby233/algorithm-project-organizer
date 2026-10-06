@@ -1,0 +1,42 @@
+# 资产索引；真实数据、模型和日志存放在现有平台中。
+# 每个分类用列表替换 []，同一资产 id 在本文件中保持唯一。
+schema_version: 1
+repos: []
+datasets: []
+evalsets: []
+models: []
+dlc_jobs: []
+
+# 以下是字段形状说明，不是已存在的资产。填写示例见 examples/README.md。
+# repos:
+#   - id: code-main
+#     url: "真实代码仓库 URL"
+#     git_sha: null  # 冻结时填实际代码仓库的完整 SHA
+#     owner: "负责人"
+#     # 本机目录统一通过 code/location.yaml 和可选本机覆盖文件登记。
+#
+# datasets:
+#   - id: train-v1
+#     uri: "不可变数据 URI 或 manifest 路径"
+#     version: "v1"
+#     owner: "负责人"
+#     notes: "样本数、访问说明等"
+#
+# evalsets:
+#   - id: eval-v1
+#     uri: "固定评测集 URI"
+#     version: "v1"
+#
+# models:
+#   - id: model-v1
+#     uri: "不可变模型 URI"
+#     version: "v1"
+#     experiment: EXP-001
+#
+# dlc_jobs:
+#   - id: "真实 DLC Job ID"
+#     url: "真实作业地址"
+#     experiment: EXP-001
+#
+# 未使用的分类保持 []。其他执行平台的任务地址写到实验的 job_url 中。
+# 不保存访问令牌、临时签名 URL 或仅名为 latest 的可变版本。

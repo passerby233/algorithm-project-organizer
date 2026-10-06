@@ -1,0 +1,61 @@
+# 只保存当前状态，历史变化记到 progress.md，口径和详细解释记到 docs/。
+schema_version: 1
+id: "TODO-project-id"
+name: "TODO-project-name"
+owner: "TODO-owner"
+stage: definition
+status: unknown
+outcome: null
+updated_at: null # 填写带时区的时间，例如 "2026-10-05T15:30:00+08:00"
+deadline: null # 日期使用带引号的 "YYYY-MM-DD"
+
+goal:
+  metric: "TODO-primary-metric"
+  direction: maximize # maximize / minimize
+  unit: ratio # ratio 为 0–1，不要与 percent 的 0–100 混用
+  baseline: null
+  target: null
+  current: null
+  evalset: null # assets.yaml 中固定评测集的 ID
+  evidence: [] # 当前指标的实验路径或原始报告 URL
+
+# 列表条目格式参见 README 和 examples/README.md。
+guardrails: []
+workstreams: [] # 可选：data / model / eval / integration 等
+dependencies: [] # 可选：本项目资产 ID 或外部子项目仓库 URL
+
+# 小项目只保留必要里程碑。调整/跳过时在 note 中说明原因。
+milestones:
+  - id: M1
+    name: "基线与评测口径"
+    owner: null
+    due: null
+    status: planned
+    acceptance: "固定评测集和方法，完成可复现 baseline 并记录主要失败类型"
+    evidence: []
+    note: ""
+  - id: M2
+    name: "最小可行性实验"
+    owner: null
+    due: null
+    status: planned
+    acceptance: "TODO：最小实验需要达到的收益阈值、约束和继续/停止条件"
+    evidence: []
+    note: ""
+  - id: M3
+    name: "验证与交付"
+    owner: null
+    due: null
+    status: planned
+    acceptance: "docs/problem.md 的全部必需验收项满足，交付和过程资产完整"
+    evidence: []
+    note: ""
+
+next_checkpoint:
+  question: "TODO：下一份证据要回答哪个明确问题？"
+  owner: null
+  due: null
+  evidence_required: "TODO：实验、报告或资产，以及据此继续/停止的条件"
+
+blockers: [] # id / description / owner / next_action / due
+risks: [] # id / description / owner / next_action / due
