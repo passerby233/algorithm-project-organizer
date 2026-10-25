@@ -1,33 +1,16 @@
-# Python / notebook 的本地产物；按实际算法框架补充。
+# Python 工具的本地产物
 __pycache__/
 *.py[cod]
 .venv/
 venv/
-.ipynb_checkpoints/
 .pytest_cache/
 
 # 私密配置
 .env
 .env.*
 !.env.example
-/code/location.local.yaml
 *.pem
 *.key
-
-# 大型研发产物保存在外部存储，地址和版本记录在对应说明中。
-/data/
-/checkpoints/
-/outputs/
-/runs/
-/wandb/
-*.ckpt
-*.pt
-*.pth
-*.safetensors
-*.onnx
-*.mp4
-*.mov
-*.parquet
 
 # 编辑器和系统文件
 .DS_Store

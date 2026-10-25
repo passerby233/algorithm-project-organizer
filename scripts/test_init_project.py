@@ -36,7 +36,7 @@ class InitializeProjectTests(unittest.TestCase):
 
     def test_new_project_creates_only_initial_topics_without_fake_code_or_nodes(self):
         before = self.source_snapshot()
-        destination = self.root / "独立项目"
+        destination = self.root / "独立项目" / "docs"
         completed = self.run_initializer(destination)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertEqual(
@@ -122,7 +122,7 @@ class InitializeProjectTests(unittest.TestCase):
         self.assertEqual(json.loads(again.stdout)["created"], [])
         self.assertEqual(json.loads(again.stdout)["updated"], [])
 
-    def test_references_are_the_only_source_of_generated_sections(self):
+    def test_topic_sections_follow_references_without_copying_instructions(self):
         clone = self.root / "skill-copy"
         (clone / "scripts").mkdir(parents=True)
         shutil.copy2(SCRIPT, clone / "scripts" / "init_project.py")
@@ -143,6 +143,45 @@ class InitializeProjectTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertEqual(len(json.loads(completed.stdout)["created"]), 7)
         self.assertFalse((destination / "experiments").exists())
+
+    def test_navigation_discovers_real_experiments_and_preserves_records(self):
+        destination = self.root / "project" / "docs"
+        self.assertEqual(self.run_initializer(destination, topics="none").returncode, 0)
+        experiments = destination / "experiments"
+        experiments.mkdir()
+        records = {
+            "EXP-002.md": b"# Second actual experiment\n",
+            "EXP-001.md": b"# First actual experiment\n",
+        }
+        for name, payload in records.items():
+            (experiments / name).write_bytes(payload)
+        (experiments / "EXP-003.md").mkdir()
+        completed = self.run_initializer(destination, topics="none")
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(json.loads(completed.stdout)["updated"], ["README.md"])
+        readme = (destination / "README.md").read_text(encoding="utf-8")
+        for name, payload in records.items():
+            self.assertIn("(experiments/" + name + ")", readme)
+            self.assertEqual((experiments / name).read_bytes(), payload)
+        self.assertNotIn("EXP-003", readme)
+        again = self.run_initializer(destination, topics="none")
+        self.assertEqual(again.returncode, 0, again.stderr)
+        self.assertEqual(json.loads(again.stdout)["updated"], [])
+
+    def test_agent_can_reuse_non_numbered_topic_without_creating_duplicate(self):
+        code = self.root / "existing-code"
+        notes = code / "docs"
+        notes.mkdir(parents=True)
+        original = b"# Existing design\nConfirmed approach.\n"
+        readme = b"# Existing navigation\n[Design](design.md)\n"
+        (notes / "design.md").write_bytes(original)
+        (notes / "README.md").write_bytes(readme)
+        completed = self.run_initializer(mode="existing-code", code_root=code, topics="none")
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertFalse((notes / "1-design.md").exists())
+        self.assertEqual((notes / "design.md").read_bytes(), original)
+        self.assertEqual((notes / "README.md").read_bytes(), readme)
+        self.assertEqual(json.loads(completed.stdout)["created"], ["project.md"])
 
     def test_skill_root_and_nested_paths_are_rejected(self):
         before = self.source_snapshot()

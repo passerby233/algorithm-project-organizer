@@ -132,6 +132,10 @@ def navigation(destination, planned_files):
     for filename in DOCUMENTS.values():
         if filename in planned_files or (destination / filename).is_file():
             rows.append("| [" + filename + "](" + filename + ") | " + title_of(read_reference(filename)) + " |")
+    for experiment in sorted((destination / "experiments").glob("EXP-*.md")):
+        if experiment.is_file():
+            link = experiment.relative_to(destination).as_posix()
+            rows.append("| [" + experiment.stem + "](" + link + ") | 实验记录 |")
     return NAV_START + "\n" + "\n".join(rows) + "\n" + NAV_END
 
 
@@ -234,7 +238,7 @@ def initialize(output=None, project_name=None, mode="new", code_root=None, topic
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", required=True, choices=("new", "existing-code"))
-    parser.add_argument("--output", help="Documentation directory; defaults to CODE_ROOT/docs for existing code")
+    parser.add_argument("--output", help="Documentation directory, not project root; required for new projects (normally PROJECT_ROOT/docs), defaults to CODE_ROOT/docs for existing code")
     parser.add_argument("--code-root", help="Existing code directory; its contents are not moved or executed")
     parser.add_argument("--name", help="Project name for newly created documents")
     parser.add_argument("--topics", help="Comma-separated problem,design,data,eval,delivery; defaults to problem,design; also all or none")
