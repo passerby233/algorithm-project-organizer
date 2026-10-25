@@ -1,0 +1,4 @@
+interface:
+  display_name: "算法项目整理"
+  short_description: "整理已有代码或新建算法项目的研发对话、实际产出与持续进展"
+  default_prompt: "使用 $algorithm-project-organizer 整理本次研发对话和产出，识别已有代码或从零建档场景，增量更新对应项目文档。"

@@ -14,7 +14,7 @@ venv/
 *.pem
 *.key
 
-# 大型研发产物保存在外部存储，仅登记 assets.yaml。
+# 大型研发产物保存在外部存储，地址和版本记录在对应说明中。
 /data/
 /checkpoints/
 /outputs/
