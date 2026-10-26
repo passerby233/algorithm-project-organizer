@@ -1,6 +1,6 @@
 # Skill 维护约定
 
-本仓库是 `algorithm-project-organizer` skill 的源码，入口见 [SKILL.md](SKILL.md)。
+本仓库是 `algo-docs` skill 的源码，入口见 [SKILL.md](SKILL.md)。
 
 - `references/` 是填写规范的唯一来源；脚本维护必要的文件映射和进展骨架，主题章节与进展表格从规范提取。整理实际项目时将 skill 源码视为只读，不维护 assets 副本。
 - 仅在用户要求修改本 skill 时编辑源码，实际项目文档写入 skill 目录之外的目标项目。

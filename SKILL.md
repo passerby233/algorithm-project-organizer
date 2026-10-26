@@ -1,5 +1,5 @@
 ---
-name: algorithm-project-organizer
+name: algo-docs
 description: 将算法研发对话与关键产出整理为项目文档，支持已有代码项目接入、从零建档和持续增量更新。按规范整理问题、方案、数据、评测、实验、交付与事实进展。
 ---
 
